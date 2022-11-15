@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono');
+
+.top-bar{
+  background-color: #ffffff;
+  border-bottom: solid #C8C4C4;
+}
+
+.travel-keep-header{
+  font-family: 'Roboto Mono', sans-serif;
+  letter-spacing: -2px;
+  word-spacing: -10px;
+}
+
+div.header-intro-transbox h2{
+  font-family: 'Roboto', sans-serif;
+  color: #000000;
+}
+
+div.homepage-intro-background{
+  background-image: url('travel-image-612x306.jpeg');
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  padding: 10em;
+  opacity: 0.5;
+}
+
+.button{
+  background-color: #6487F6;
+  color: #ffffff;
+  border-radius: 1em;
+
+  &:hover{
+    background-color: #2966C9;
+    transform: scale(1.05) perspective(1px)
+  }
+}
+
+.button>a{
+  background-color: #6487F6;
+  color: #ffffff;
+  border-radius: 1em;
+
+  &:hover{
+    background-color: #2966C9;
+  }
+}
+
+.form-button{
+  background-color: #6487F6;
+  color: #ffffff;
+  border-radius: 0.5em;
+
+  &:hover{
+    background-color: #2966C9;
+    transform: scale(1.05) perspective(1px)
+  }
+}
