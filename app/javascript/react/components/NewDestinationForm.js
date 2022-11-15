@@ -3,7 +3,26 @@ import React from 'react'
 const NewDestinationForm = (props) => {
 
   return (
-    <h1>New Destination Form POPS UP!</h1>
+    <div className="component-page">
+      <h1>Search New Destination</h1>
+      <form>
+        <label>
+          Destination:
+          <input
+            type="text"
+            placeholder="Ex: Boston"
+            name="city_name"
+          />
+        </label>
+
+        <div>
+          <input
+            className="form-button"
+            type="submit"
+          />
+        </div>
+      </form>
+    </div>
   )
 }
 
