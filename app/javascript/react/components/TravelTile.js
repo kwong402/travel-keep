@@ -3,7 +3,10 @@ import React from 'react'
 const TravelTile = (props) => {
 
   return (
-    <h1>Travel Tile</h1>
+    <div className="box">
+      <h3>Boston, MA</h3>
+      <p>{props.description}</p>
+    </div>
   )
 }
 

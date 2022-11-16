@@ -1,14 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono');
 
+h1, h2, h3, h4, h5, h6{
+  font-family: Helvetica, sans-serif;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+
+p{
+  font-family: Helvetica, sans-serif;
+}
+
 .top-bar{
-  background-color: #ffffff;
+  background-color: #E6E6E6;
   border-bottom: solid #C8C4C4;
 }
 
 .travel-keep-header{
-  font-family: 'Roboto Mono', sans-serif;
-  letter-spacing: -2px;
-  word-spacing: -10px;
+  font-family: Helvetica, sans-serif;
+  font-weight: bold;
+  letter-spacing: -1px;
+  word-spacing: -5px;
 }
 
 .homepage-intro-background{
@@ -28,8 +39,9 @@
 }
 
 .homepage-intro-content h2{
-  font-family: 'Roboto', sans-serif;
+  font-family: Helvetica, sans-serif;
   color: #000000;
+  font-weight: 500;
 }
 
 .button{
@@ -137,4 +149,47 @@
 
 .component-page{
   margin: 5em 5em;
+}
+
+.box{
+  border: solid #E6E6E6 0.2em;
+  padding: 3em;
+  margin: 2em;
+}
+
+.sticky-footer-css {
+  height: 100vh;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.sticky-footer-css-body {
+  overflow: auto;
+}
+
+.sticky-footer-css .header {
+  background-color: #2c3840;
+  height: 10rem;
+  color: #fff;
+  padding: 3rem;
+}
+
+.sticky-footer-css .header .menu a {
+  color: #fff;
+}
+
+.sticky-footer-css .body-content {
+  background-color: #fff;
+}
+
+.sticky-footer-css .footer {
+  height: 10rem;
+  background-color: #2c3840;
+  color: #fff;
+  padding: 3rem;
+}
+
+.sticky-footer-css .footer .menu a {
+  color: #fff;
 }
