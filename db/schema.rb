@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(version: 2022_11_14_192617) do
   create_table "destinations", force: :cascade do |t|
     t.string "city_name", null: false
     t.string "state"
-    t.string "country", null: false
-    t.string "airport", null: false
+    t.string "country"
+    t.string "airport"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
