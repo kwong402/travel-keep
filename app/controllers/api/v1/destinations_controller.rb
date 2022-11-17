@@ -12,18 +12,10 @@ class Api::V1::DestinationsController < ApiController
 
     city = params[:city_name]
     response = amadeus.reference_data.locations.get(keyword: city, subType: 'CITY')
-    
     render json: response.data
-  end
-  
-  def create
   end
 
   def search
-    api = AmadeusApi.new.amadeus
-    city = params[:city_name]
-    response = api.reference_data.locations.get(keyword: city, subType: 'CITY')
-    render json: response
   end
 
   protected

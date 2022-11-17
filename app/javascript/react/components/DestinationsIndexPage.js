@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from "react-router-dom"
 import FetchDestinations from './services/FetchDestinations'
 import NewDestinationForm from './NewDestinationForm'
 import DestinationResultTile from './DestinationResultTile'
@@ -28,14 +29,14 @@ const DestinationsIndexPage = (props) => {
     return _.isEmpty(submitErrors)
   }
 
-  const handleFormChange = (event) => {
+  const handleDestinationFormChange = (event) => {
     setSearchRecord({
       ...searchRecord,
       [event.currentTarget.name]: event.currentTarget.value
     })
   }
 
-  const handleFormSubmit = async(event) => {
+  const searchNewDestination = async(event) => {
     event.preventDefault()
     if (validForSubmission()){
       setFetchError(null)
@@ -46,20 +47,22 @@ const DestinationsIndexPage = (props) => {
       if (response){
         setDestinationResults(response)
       } else {
-        setFetchError(<div><p>No matches were found. Try another Destination.</p></div>)
+        setFetchError(<div><p>No matches were found. Try another destination.</p></div>)
       }
     }
   }
 
   const resultTiles = destinationResults.map((result) => {
     return (
-      <DestinationResultTile
-        key={result.id}
-        city={result.address.cityName}
-        state={result.address.stateCode}
-        country={result.address.countryName}
-      />
-      )
+      <Link to={`travels/${result.id}/new`} key={result.id}>
+        <DestinationResultTile
+          key={result.id}
+          city={result.address.cityName}
+          state={result.address.stateCode}
+          country={result.address.countryName}
+        />
+      </Link>
+    )
   })
 
   let appearance = ""
@@ -75,7 +78,8 @@ const DestinationsIndexPage = (props) => {
         throw new Error(errorMessage)
       }
       const responseBody = await response.json()
-      setTravels(responseBody)
+      const travelsData = responseBody.travels
+      setTravels(travelsData)
     } catch (error) {
       console.error(`Error in fetch: ${error.message}`)
     }
@@ -85,7 +89,7 @@ const DestinationsIndexPage = (props) => {
     return (
       <TravelTile
         key={travel.id}
-        description={travel.body}
+        travel={travel}
       />
       )
   })
@@ -99,8 +103,8 @@ const DestinationsIndexPage = (props) => {
       <div className="grid-x grid-margin-x">
         <div className="grid-container cell medium-6">
           <NewDestinationForm 
-            handleFormChange={handleFormChange}
-            handleFormSubmit={handleFormSubmit}
+            handleDestinationFormChange={handleDestinationFormChange}
+            searchNewDestination={searchNewDestination}
             searchRecord={searchRecord}
             errors={errors}
           />
@@ -111,7 +115,11 @@ const DestinationsIndexPage = (props) => {
         </div>
       </div>
       <h2>MY TRAVEL IDEAS</h2>
-      {travelTiles}
+      <div className="grid-container">
+        <div className="grid-x grid-margin-x small-up-2 medium-up-3 large-up-4">
+          {travelTiles}
+        </div>
+      </div>
     </div>
   )
 }
