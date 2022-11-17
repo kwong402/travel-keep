@@ -12,7 +12,7 @@
   
   <nav class="top-bar ">
     <h1>
-      <%= image_tag("icons8-travel-diary-50.png", :alt => "travel icon") %>
+      <a href="/destinations"><%= image_tag("icons8-travel-diary-50.png", :class => "header-image", :alt => "travel icon") %></a>
       <a href="/destinations" class="travel-keep-header">Travel Keep</a>
     </h1>
 
@@ -63,5 +63,10 @@
   <%= javascript_pack_tag 'application' %>
   
   <%= yield :extra_footer %>
+  <nav class="bottom-bar ">
+    <a class="align-left" href="#">About the Creator</p>
+    <a class="align-right" href="https://www.linkedin.com/in/kwong402/" target="_blank">LinkedIn</p>
+    <a class="align-right" href="https://github.com/kwong402" target="_blank">GitHub</p>
+  </nav>
 </body>
 </html>

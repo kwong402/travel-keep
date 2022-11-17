@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 2022_11_14_192617) do
     t.string "state"
     t.string "country"
     t.string "airport"
+    t.string "amadeus_api_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

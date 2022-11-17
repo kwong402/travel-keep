@@ -6,9 +6,9 @@ const NewDestinationForm = (props) => {
 
   return (
     <div className="box">
-      <form onSubmit={props.handleFormSubmit}>
+      <form onSubmit={props.searchNewDestination}>
         <h2>PLAN MY TRAVELS</h2>
-        <p>Start by searching for a destination!</p>
+        <p>Start by searching a destination!</p>
         <ErrorList 
           errors={props.errors} 
         />
@@ -18,7 +18,7 @@ const NewDestinationForm = (props) => {
             type="text"
             placeholder="Ex: Boston"
             name="city_name"
-            onChange={props.handleFormChange}
+            onChange={props.handleDestinationFormChange}
             value={props.searchRecord.city_name}
           />
         </label>
@@ -27,6 +27,7 @@ const NewDestinationForm = (props) => {
           <input
             className="form-button"
             type="submit"
+            value="Search"
           />
         </div>
       </form>

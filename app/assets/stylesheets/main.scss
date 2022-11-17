@@ -1,23 +1,53 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono');
 
+body{
+  background-color: #F8F9FA;
+}
+
 h1, h2, h3, h4, h5, h6{
   font-family: Helvetica, sans-serif;
   font-weight: 900;
   letter-spacing: -1px;
 }
 
-p{
+p, input{
   font-family: Helvetica, sans-serif;
 }
 
 .top-bar{
-  background-color: #E6E6E6;
+  background-color: #A2BFBD;
   border-bottom: solid #C8C4C4;
+  height: 7em;
+}
+
+.bottom-bar{
+  background-color: #A2BFBD;
+  border-top: solid #C8C4C4;
+  position: fixed;
+  bottom: 0em;
+  width: 100%;
+  margin-bottom: 0em;
+  padding: 1em 0em 0em 0em;
+}
+
+.align-left{
+  padding: 0em 0em 0em 2em;
+  float: left;
+}
+
+.align-right{
+  padding: 0em 2em 0em 0em;
+  float: right;
+}
+
+.header-image{
+  padding: 0em 0em 0.4em 0em;
 }
 
 .travel-keep-header{
   font-family: Helvetica, sans-serif;
   font-weight: bold;
+  font-size: 1.5em;
   letter-spacing: -1px;
   word-spacing: -5px;
 }
@@ -27,6 +57,7 @@ p{
   background-size: cover;
   background-position: center;
   text-align: center;
+  height: 45em;
   padding: 10em;
 }
 
@@ -69,6 +100,7 @@ p{
   background-color: #6487F6;
   color: #ffffff;
   border-radius: 0.5em;
+  font-family: Helvetica, sans-serif;
 
   &:hover{
     background-color: #2966C9;
@@ -76,10 +108,14 @@ p{
   }
 }
 
+.unordered-list{
+  list-style-type: none;
+}
+
 .sticky-social-bar {
   padding: 0;
   margin: 0;
-  top: 11%;
+  top: 13%;
   -webkit-transform: translateY(-50%);
       -ms-transform: translateY(-50%);
           transform: translateY(-50%);
@@ -152,7 +188,9 @@ p{
 }
 
 .box{
+  background-color: #FFFFFF;
   border: solid #E6E6E6 0.2em;
+  border-radius: 1em;
   padding: 3em;
   margin: 2em;
 }
