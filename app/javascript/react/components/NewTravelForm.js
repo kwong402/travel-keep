@@ -1,14 +1,28 @@
-import React, { useState} from 'react'
+import React, { useEffect, useState} from 'react'
+import { Redirect } from "react-router-dom"
+import FetchDestinations from './services/FetchDestinations'
 
 const NewTravelForm = (props) => {
+  const [shouldRedirect, setShouldRedirect] = useState(false)
+  const [selectedDestination, setSelectedDestination] = useState({})
   const [newTravelRecord, setNewTravelRecord] = useState({
     body: ""
   })
 
+  useEffect(() => {
+    fetchDestination()
+  }, [])
+
+  const fetchDestination = async() => {
+    const destinationId = props.match.params.destination_id
+    const destination = await FetchDestinations.getSelectedDestination(destinationId)
+    setSelectedDestination(destination)
+  }
+
   const postNewTravel = async(event) => {
     try{
       event.preventDefault()
-      debugger
+
       const destinationId = props.match.params.destination_id
       const response = await fetch(`/api/v1/destinations/${destinationId}/travels`, {
         method: "POST",
@@ -25,12 +39,10 @@ const NewTravelForm = (props) => {
       }
       const responseBody = await response.json()
       setNewTravelRecord(responseBody.travel)
+      setShouldRedirect(true)
     } catch(error) {
       console.error(`Error in fetch: ${error.message}`)
     }
-    setNewTravelRecord({
-      body: ""
-    })
   }
 
   const handleTravelFormChange = (event) => {
@@ -40,9 +52,18 @@ const NewTravelForm = (props) => {
     })
   }
 
+  let showDestinationName = <h1>Loading...</h1>
+  if (Object.keys(selectedDestination).length > 0) {
+    showDestinationName=<h1>{selectedDestination.address.cityName}, {selectedDestination.address.stateCode} ({selectedDestination.address.countryCode})</h1>
+  }
+
+  if (shouldRedirect) {
+    return <Redirect to='/destinations' />
+  }
+
   return (
     <form className="box" onSubmit={postNewTravel}>
-      <h2>Destination Title UPDATE LATER</h2>
+      {showDestinationName}
       <label>
         Notes:
         <input
