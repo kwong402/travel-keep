@@ -15,7 +15,40 @@ class Api::V1::DestinationsController < ApiController
     render json: response.data
   end
 
+  def create
+    binding.pry
+    amadeus = Amadeus::Client.new({
+        client_id: "#{ENV['AMADEUS_API_KEY']}",
+        client_secret: "#{ENV['AMADEUS_API_SECRET']}"
+      })
+
+      response = amadeus.reference_data.location(params[:destination_id]).get.data
+      destination = Destination.new(
+        city_name: response["address"]["cityName"],
+        state: response["address"]["stateCode"],
+        country: response["address"]["countryName"],
+        amadeus_api_id: response["id"]
+      )
+      binding.pry
+      if destination.save
+        binding.pry
+        render json: destination, serializer: DestinationSerializer
+      else
+        binding.pry
+        render json: { error: destination.errors.full_messages }, status: :unprocessable_entity
+      end
+  end
+
   def search
+    amadeus = Amadeus::Client.new({
+      client_id: "#{ENV['AMADEUS_API_KEY']}",
+      client_secret: "#{ENV['AMADEUS_API_SECRET']}"
+    })
+
+    id = params[:amadeus_api_id]
+    response = amadeus.reference_data.location(id).get
+
+    render json: response.data
   end
 
   protected

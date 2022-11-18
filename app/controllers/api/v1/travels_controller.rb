@@ -31,14 +31,11 @@ class Api::V1::TravelsController < ApiController
       travel.destination = destination
     end
 
-    binding.pry
     travel.user = current_user
 
     if travel.save
-      binding.pry
       render json: travel, serializer: TravelSerializer
     else
-      binding.pry
       render json: { error: travel.errors.full_messages }, status: :unprocessable_entity
     end
   end
