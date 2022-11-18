@@ -80,4 +80,7 @@ test:
 #
 production:
   <<: *default
+  database: travel-keep_production
+  username: travel-keep
+  password: <%= ENV['TRAVEL-KEEP_DATABASE_PASSWORD'] %>
   url: <%= ENV['DATABASE_URL'] %>
