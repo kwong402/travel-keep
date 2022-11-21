@@ -4,6 +4,8 @@ import FetchDestinations from './services/FetchDestinations'
 import NewDestinationForm from './NewDestinationForm'
 import DestinationResultTile from './DestinationResultTile'
 import TravelTile from './TravelTile'
+import FlightPriceForm from './FlightPriceForm'
+import FlightPriceResult from './FlightPriceResult'
 
 const DestinationsIndexPage = (props) => {
   const [fetchError, setFetchError] = useState(null)
@@ -94,6 +96,15 @@ const DestinationsIndexPage = (props) => {
       )
   })
 
+  const searchPriceAnalysis = (props) => {
+    debugger
+    //loop through backend?
+    //go to the backend '/api/v1/destinations/price-analysis?'
+    //iterate travels to grab destination id
+    //search airport using destination id
+    //return either all price or just the lowest median price
+  }
+
   useEffect(() => {
     fetchTravels()
   }, [])
@@ -108,10 +119,18 @@ const DestinationsIndexPage = (props) => {
             searchRecord={searchRecord}
             errors={errors}
           />
+          <FlightPriceForm 
+            searchPriceAnalysis={searchPriceAnalysis}
+          />
         </div>
-        <div className={`${appearance} grid-container cell medium-6`}>
-          {fetchError}
-          {resultTiles}
+        <div className={`grid-container cell medium-6`}>
+          <div className={`${appearance}`}>
+            {fetchError}
+            {resultTiles}
+          </div>
+          <div>
+            <FlightPriceResult />
+          </div>
         </div>
       </div>
       <h2>MY TRAVEL IDEAS</h2>

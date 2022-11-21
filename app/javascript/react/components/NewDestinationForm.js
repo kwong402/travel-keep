@@ -3,7 +3,6 @@ import ErrorList from "./ErrorList"
 import _ from "lodash"
 
 const NewDestinationForm = (props) => {
-
   return (
     <div className="box">
       <form onSubmit={props.searchNewDestination}>
