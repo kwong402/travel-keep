@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Link } from "react-router-dom"
 import FetchDestinations from './services/FetchDestinations'
 import NewDestinationForm from './NewDestinationForm'
-import TravelModal from './TravelModal'
 import DestinationResultTile from './DestinationResultTile'
 import TravelTile from './TravelTile'
-import FlightPriceForm from './FlightPriceForm'
 
 const DestinationsIndexPage = (props) => {
   const [clickDestinationForm, setClickDestinationForm] = useState(false)
@@ -97,7 +95,6 @@ const DestinationsIndexPage = (props) => {
         <div className="grid-container cell medium-6">
           <i className={icon} aria-hidden="true" onClick={handleIconClick}></i>
           {showDestinationForm}
-          <FlightPriceForm />
         </div>
         <div className={`${appearance} grid-container cell medium-6`}>
           {noMatchMessage}
