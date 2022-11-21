@@ -47,6 +47,9 @@ class Api::V1::DestinationsController < ApiController
     render json: response.data
   end
 
+  def update
+  end
+
   protected
 
   def destination_params
