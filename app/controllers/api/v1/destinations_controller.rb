@@ -16,7 +16,6 @@ class Api::V1::DestinationsController < ApiController
   end
 
   def create
-    binding.pry
     amadeus = Amadeus::Client.new({
         client_id: "#{ENV['AMADEUS_API_KEY']}",
         client_secret: "#{ENV['AMADEUS_API_SECRET']}"
@@ -29,12 +28,9 @@ class Api::V1::DestinationsController < ApiController
         country: response["address"]["countryName"],
         amadeus_api_id: response["id"]
       )
-      binding.pry
       if destination.save
-        binding.pry
         render json: destination, serializer: DestinationSerializer
       else
-        binding.pry
         render json: { error: destination.errors.full_messages }, status: :unprocessable_entity
       end
   end
