@@ -18,8 +18,7 @@ const TravelModal = (props) => {
     const travelId = props.travelId
     const travelData = await FetchTravels.updateTravel(travelId, updatedTravelRecord)
     props.updateTravelTiles(travelData)
-    debugger
-    props.handleClose
+    props.handleClose()
   }
 
   return (

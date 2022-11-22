@@ -15,7 +15,6 @@ class FetchTravels {
         throw new Error(errorMessage)
       }
       const responseBody = await response.json()
-      // debugger
       return responseBody.travel
     } catch (error) {
       console.error(`Error in fetch: ${error.message}`)

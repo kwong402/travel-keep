@@ -70,11 +70,14 @@ const DestinationsIndexPage = (props) => {
   }
 
   const updateTravelTiles = (travelData) => {
-    debugger
-    const travelToUpdate = getTravels.filter(travel => travel.id == travelData.id)[0]
-    travelToUpdate.body = travelData.body
-    setTravels(getTravels.splice(travelData.id,1,travelToUpdate))
-    debugger //getTravels is updated
+    const updatedState = getTravels.map((travel) => {
+      if (travel.id === travelData.id) {
+        return travelData
+      } else {
+        return travel
+      }
+    })
+    setTravels(updatedState)
   }
 
   const travelTiles = getTravels.map((travel) => {
