@@ -37,9 +37,7 @@ class Api::V1::TravelsController < ApiController
   end
 
   def update
-    binding.pry
     travel = Travel.find(params["id"])
-    binding.pry
     if travel.update(travel_params)
       render json: travel, serializer: TravelSerializer
     else
