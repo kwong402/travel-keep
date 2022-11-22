@@ -10,7 +10,6 @@ const DestinationsIndexPage = (props) => {
   const [noMatchMessage, setNoMatchMessage] = useState(null)
   const [getTravels, setTravels] = useState([])
   const [destinationResults, setDestinationResults] = useState([])
-  const [openModal, setOpenModal] = useState(false)
 
   const handleIconClick = (event) => {
     event.preventDefault()
@@ -70,18 +69,12 @@ const DestinationsIndexPage = (props) => {
     }
   }
 
-  const updateTravel = (event) => {
-    event.preventDefault()
-    debugger
-  }
-
   const travelTiles = getTravels.map((travel) => {
     return (
-      <TravelTile
-        key={travel.id}
-        travel={travel}
-        updateTravel={updateTravel}
-      />
+        <TravelTile
+          key={travel.id}
+          travel={travel}
+        />
     )
   })
 

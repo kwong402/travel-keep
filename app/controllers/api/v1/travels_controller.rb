@@ -8,7 +8,6 @@ class Api::V1::TravelsController < ApiController
 
   def create
     travel = Travel.new(travel_params)
-
     destination = Destination.find_by(amadeus_api_id: params[:destination_id])
 
     if destination
@@ -18,7 +17,6 @@ class Api::V1::TravelsController < ApiController
         client_id: "#{ENV['AMADEUS_API_KEY']}",
         client_secret: "#{ENV['AMADEUS_API_SECRET']}"
       })
-
       response = amadeus.reference_data.location(params[:destination_id]).get.data
       destination = Destination.new(
         city_name: response["address"]["cityName"],
@@ -26,17 +24,26 @@ class Api::V1::TravelsController < ApiController
         country: response["address"]["countryName"],
         amadeus_api_id: response["id"]
       )
-
       destination.save
       travel.destination = destination
     end
 
     travel.user = current_user
-
     if travel.save
       render json: travel, serializer: TravelSerializer
     else
-      render json: { error: travel.errors.full_messages }, status: :unprocessable_entity
+      render json: { error: travel.errors.full_messages }
+    end
+  end
+
+  def update
+    binding.pry
+    travel = Travel.find(params["id"])
+    binding.pry
+    if travel.update(travel_params)
+      render json: travel, serializer: TravelSerializer
+    else
+      render json: { error: travel.errors.full_messages }
     end
   end
 
