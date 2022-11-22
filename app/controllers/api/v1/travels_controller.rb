@@ -37,9 +37,22 @@ class Api::V1::TravelsController < ApiController
   end
 
   def update
+    travel_to_update = Travel.find(params["id"])
+    travel_to_update.update(travel_params)
+    if travel_to_update.save
+      render json: travel_to_update, serializer: TravelSerializer
+    else
+      render json: { error: travel_to_update.errors.full_messages }
+    end
+  end
+
+  def destroy
     travel = Travel.find(params["id"])
-    if travel.update(travel_params)
-      render json: travel, serializer: TravelSerializer
+    
+    if current_user.is == travel.user_id
+      travel.destroy
+      travels = current_user.list
+      render json: {travels: travels, user: current_user } #double check here
     else
       render json: { error: travel.errors.full_messages }
     end

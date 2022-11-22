@@ -1,57 +1,36 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
+import FetchTravels from "./services/FetchTravels"
 
 const TravelModal = (props) => {
-  const [travelRecord, setTravelRecord] = useState({
+  const [updatedTravelRecord, setUpdatedTravelRecord] = useState({
     body: props.travelNotes
   })
 
   const handleTravelFormChange = (event) => {
-    setTravelRecord({
-      ...travelRecord,
+    setUpdatedTravelRecord({
+      ...updatedTravelRecord,
       [event.currentTarget.name]: event.currentTarget.value
     })
   }
 
-  const handleSubmit = async (event) => {
+  const handleUpdate = async (event) => {
     event.preventDefault()
-    debugger
     const travelId = props.travelId
-    try {
-      const response = await fetch(`api/v1/travels/${travelId}`, {
-        method: "PATCH",
-        credentials: "same-origin",
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ travel: travelRecord })
-      })
-      debugger
-      if (!response.ok) {
-        const errorMessage = `${response.status} (${response.statusText})`
-        throw new Error(errorMessage)
-      }
-      const responseBody = await response.json().travel.body
-      debugger
-      // need to do something to trigger change on the front end
-      setTravelRecord(responseBody)
-    } catch (error) {
-      console.error(`Error in fetch: ${error.message}`)
-    }
-      debugger
-      props.handleClose
-      //how to make Destination Index re-render, redirect?
+    const travelData = await FetchTravels.updateTravel(travelId, updatedTravelRecord)
+    props.updateTravelTiles(travelData)
+    debugger
+    props.handleClose
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleUpdate}>
       <h2>{props.destinationName}</h2>
       <label>
         Notes:
         <input
           type="text"
           name="body"
-          value={travelRecord.body}
+          value={updatedTravelRecord.body}
           onChange={handleTravelFormChange}
         />
       </label>

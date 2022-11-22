@@ -19,12 +19,15 @@ const TravelTile = (props) => {
   }
 
   return (
-    <div className="box">
+    <div className="box travel-tile">
       <h3>{destinationName}</h3>
       <p>{travelNotes}</p>
       <button onClick={handleOpen} className="button">
         Edit
       </button>
+      {/* <button onClick={confirmTravelDelete} className="button">
+        Delete
+      </button> */}
       <ReactModal
         isOpen={modalStatus}
         contentLabel={"Update"}
@@ -37,6 +40,7 @@ const TravelTile = (props) => {
           destinationName={destinationName}
           travelNotes={travelNotes}
           travelId={props.travel.id}
+          updateTravelTiles={props.updateTravelTiles}
         />
       </ReactModal>
     </div>
