@@ -48,8 +48,13 @@ p, input{
   font-family: Helvetica, sans-serif;
   font-weight: bold;
   font-size: 1.5em;
+  color: #4b81e5;
   letter-spacing: -1px;
   word-spacing: -5px;
+
+  &:hover{
+    color: #2966C9;
+  }
 }
 
 .homepage-intro-background{
@@ -78,6 +83,8 @@ p, input{
 .button{
   background-color: #6487F6;
   color: #ffffff;
+  font-weight: 500;
+  font-size: 1em;
   border-radius: 1em;
 
   &:hover{

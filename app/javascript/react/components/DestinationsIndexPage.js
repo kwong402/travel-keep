@@ -97,9 +97,6 @@ const DestinationsIndexPage = (props) => {
   })
 
   const searchPriceAnalysis = async (date) => {
-    debugger
-    //loop through backend? send to FetchSomething(getTravels)
-    const destination = await FetchDestinations.getCheapestFlight(date, getTravels)
 
   }
 

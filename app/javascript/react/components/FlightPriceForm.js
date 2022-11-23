@@ -52,7 +52,7 @@ const FlightPriceForm = (props) => {
       </label>
       <div>
           <input
-            className="form-button"
+            className="button"
             type="submit"
             value="Analyze My Travel Ideas"
           />
