@@ -1,5 +1,4 @@
 class FetchDestinations {
-
   static async getDestinations(userInput) {
     try {
       const response = await fetch(`/api/v1/destinations?city_name=${userInput}`)

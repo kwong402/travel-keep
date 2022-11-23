@@ -8,50 +8,34 @@ import FlightPriceForm from './FlightPriceForm'
 import FlightPriceResult from './FlightPriceResult'
 
 const DestinationsIndexPage = (props) => {
-  const [fetchError, setFetchError] = useState(null)
-  const [errors, setErrors] = useState({})
+  const [clickDestinationForm, setClickDestinationForm] = useState(false)
+  const [noMatchMessage, setNoMatchMessage] = useState(null)
   const [getTravels, setTravels] = useState([])
   const [destinationResults, setDestinationResults] = useState([])
-  const [searchRecord, setSearchRecord] = useState({
-    city_name: ""
-  })
 
-  const validForSubmission = () => {
-    let submitErrors = {}
-    const requiredFields = ["city_name"]
-    requiredFields.forEach(field => {
-      if (searchRecord[field].trim() === '') {
-        submitErrors = {
-          ...submitErrors,
-          [field]: "is blank"
-        }
-      }
-    })
-    setErrors(submitErrors)
-    return _.isEmpty(submitErrors)
-  }
-
-  const handleDestinationFormChange = (event) => {
-    setSearchRecord({
-      ...searchRecord,
-      [event.currentTarget.name]: event.currentTarget.value
-    })
-  }
-
-  const searchNewDestination = async(event) => {
+  const handleIconClick = (event) => {
     event.preventDefault()
-    if (validForSubmission()){
-      setFetchError(null)
+    setClickDestinationForm(!clickDestinationForm)
+  }
+
+  const searchNewDestination = async(userSearchData) => {
+      setNoMatchMessage(null)
       setDestinationResults([])
-
-      const response = await FetchDestinations.getDestinations(searchRecord.city_name)
-
+      const response = await FetchDestinations.getDestinations(userSearchData.city_name)
       if (response){
         setDestinationResults(response)
       } else {
-        setFetchError(<div><p>No matches were found. Try another destination.</p></div>)
+        setNoMatchMessage(<div><p>No matches were found. Try another destination.</p></div>)
       }
-    }
+  }
+
+  let showDestinationForm
+  let icon = "fa fa-plus-square icon"
+  if (clickDestinationForm) {
+    icon = "fa fa-minus-square icon"
+    showDestinationForm = <NewDestinationForm 
+      searchNewDestination={searchNewDestination}
+    />
   }
 
   const resultTiles = destinationResults.map((result) => {
@@ -68,7 +52,7 @@ const DestinationsIndexPage = (props) => {
   })
 
   let appearance = ""
-  if (destinationResults.length > 0 || fetchError) {
+  if (destinationResults.length > 0 || noMatchMessage) {
     appearance = "box"
   }
 
@@ -87,13 +71,25 @@ const DestinationsIndexPage = (props) => {
     }
   }
 
+  const updateTravelTiles = (travelData) => {
+    const updatedState = getTravels.map((travel) => {
+      if (travel.id === travelData.id) {
+        return travelData
+      } else {
+        return travel
+      }
+    })
+    setTravels(updatedState)
+  }
+
   const travelTiles = getTravels.map((travel) => {
     return (
-      <TravelTile
-        key={travel.id}
-        travel={travel}
-      />
-      )
+        <TravelTile
+          key={travel.id}
+          travel={travel}
+          updateTravelTiles={updateTravelTiles}
+        />
+    )
   })
 
   const searchPriceAnalysis = async (date) => {
@@ -108,24 +104,22 @@ const DestinationsIndexPage = (props) => {
     <div className="grid-container">
       <div className="grid-x grid-margin-x">
         <div className="grid-container cell medium-6">
-          <NewDestinationForm 
-            handleDestinationFormChange={handleDestinationFormChange}
-            searchNewDestination={searchNewDestination}
-            searchRecord={searchRecord}
-            errors={errors}
-          />
+          <i className={icon} aria-hidden="true" onClick={handleIconClick}></i>
+          {showDestinationForm}
+        </div>
+        <div className={`${appearance} grid-container cell medium-6`}>
+          {noMatchMessage}
+          {resultTiles}
+        </div>
+      </div>
+      <div className="grid-x grid-margin-x">
+        <div className="grid-container cell medium-6">
           <FlightPriceForm 
             searchPriceAnalysis={searchPriceAnalysis}
           />
         </div>
         <div className={`grid-container cell medium-6`}>
-          <div className={`${appearance}`}>
-            {fetchError}
-            {resultTiles}
-          </div>
-          <div>
-            <FlightPriceResult />
-          </div>
+          <FlightPriceResult />
         </div>
       </div>
       <h2>MY TRAVEL IDEAS</h2>
