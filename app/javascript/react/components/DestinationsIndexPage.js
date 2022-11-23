@@ -96,13 +96,11 @@ const DestinationsIndexPage = (props) => {
       )
   })
 
-  const searchPriceAnalysis = (props) => {
+  const searchPriceAnalysis = async (date) => {
     debugger
-    //loop through backend?
-    //go to the backend '/api/v1/destinations/price-analysis?'
-    //iterate travels to grab destination id
-    //search airport using destination id
-    //return either all price or just the lowest median price
+    //loop through backend? send to FetchSomething(getTravels)
+    const destination = await FetchDestinations.getCheapestFlight(date, getTravels)
+
   }
 
   useEffect(() => {

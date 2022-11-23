@@ -29,7 +29,7 @@ const FlightPriceForm = (props) => {
       [event.currentTarget.name]: event.currentTarget.value
     })
   }
-console.log(flightInfoRecord)
+
   const handleSubmit = async(event) => {
     event.preventDefault()
     if (validForSubmission()) {
