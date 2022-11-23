@@ -58,7 +58,7 @@ const NewDestinationForm = (props) => {
 
         <div>
           <input
-            className="form-button"
+            className="button"
             type="submit"
             value="Search"
           />

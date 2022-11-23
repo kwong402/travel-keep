@@ -24,6 +24,10 @@ class FetchDestinations {
       console.error(`Error in fetch: ${error.message}`)
     }
   }
+
+  static async getAirport(travel) {
+    
+  }
 }
 
 export default FetchDestinations

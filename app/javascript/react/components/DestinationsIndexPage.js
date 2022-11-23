@@ -4,6 +4,8 @@ import FetchDestinations from './services/FetchDestinations'
 import NewDestinationForm from './NewDestinationForm'
 import DestinationResultTile from './DestinationResultTile'
 import TravelTile from './TravelTile'
+import FlightPriceForm from './FlightPriceForm'
+import FlightPriceResult from './FlightPriceResult'
 
 const DestinationsIndexPage = (props) => {
   const [clickDestinationForm, setClickDestinationForm] = useState(false)
@@ -90,6 +92,10 @@ const DestinationsIndexPage = (props) => {
     )
   })
 
+  const searchPriceAnalysis = async (date) => {
+
+  }
+
   useEffect(() => {
     fetchTravels()
   }, [])
@@ -104,6 +110,16 @@ const DestinationsIndexPage = (props) => {
         <div className={`${appearance} grid-container cell medium-6`}>
           {noMatchMessage}
           {resultTiles}
+        </div>
+      </div>
+      <div className="grid-x grid-margin-x">
+        <div className="grid-container cell medium-6">
+          <FlightPriceForm 
+            searchPriceAnalysis={searchPriceAnalysis}
+          />
+        </div>
+        <div className={`grid-container cell medium-6`}>
+          <FlightPriceResult />
         </div>
       </div>
       <h2>MY TRAVEL IDEAS</h2>
