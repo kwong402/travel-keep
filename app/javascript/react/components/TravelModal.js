@@ -26,7 +26,7 @@ const TravelModal = (props) => {
       <h2>{props.destinationName}</h2>
       <label>
         Notes:
-        <input
+        <textarea
           type="text"
           name="body"
           value={updatedTravelRecord.body}

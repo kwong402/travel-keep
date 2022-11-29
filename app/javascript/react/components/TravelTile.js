@@ -18,6 +18,10 @@ const TravelTile = (props) => {
     setModalStatus(false)
   }
 
+  const handleDelete = () => {
+    props.confirmTravelDelete(props.travel)
+  }
+
   return (
     <div className="box travel-tile">
       <h3>{destinationName}</h3>
@@ -25,9 +29,9 @@ const TravelTile = (props) => {
       <button onClick={handleOpen} className="button">
         Edit
       </button>
-      {/* <button onClick={confirmTravelDelete} className="button">
+      <button onClick={handleDelete} className="delete button">
         Delete
-      </button> */}
+      </button>
       <ReactModal
         isOpen={modalStatus}
         contentLabel={"Update"}

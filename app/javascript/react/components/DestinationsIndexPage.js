@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from "react-router-dom"
 import FetchDestinations from './services/FetchDestinations'
+import FetchTravels from './services/FetchTravels'
 import NewDestinationForm from './NewDestinationForm'
 import DestinationResultTile from './DestinationResultTile'
 import TravelTile from './TravelTile'
@@ -9,11 +10,14 @@ import FlightPriceResult from './FlightPriceResult'
 
 const DestinationsIndexPage = (props) => {
   const [clickDestinationForm, setClickDestinationForm] = useState(false)
-  const [noMatchMessage, setNoMatchMessage] = useState(null)
+  const [clickFlightPriceForm, setClickFlightPriceForm] = useState(false)
   const [getTravels, setTravels] = useState([])
+  const [noMatchMessage, setNoMatchMessage] = useState(null)
   const [destinationResults, setDestinationResults] = useState([])
+  const [flightErrorMessage, setFlightErrorMessage] = useState(null)
+  const [flightPriceResults, setFlightPriceResults] = useState([])
 
-  const handleIconClick = (event) => {
+  const handleDestinationIconClick = (event) => {
     event.preventDefault()
     setClickDestinationForm(!clickDestinationForm)
   }
@@ -30,9 +34,9 @@ const DestinationsIndexPage = (props) => {
   }
 
   let showDestinationForm
-  let icon = "fa fa-plus-square icon"
+  let destinationIcon = "fa fa-plus-square icon"
   if (clickDestinationForm) {
-    icon = "fa fa-minus-square icon"
+    destinationIcon = "fa fa-minus-square icon"
     showDestinationForm = <NewDestinationForm 
       searchNewDestination={searchNewDestination}
     />
@@ -51,9 +55,49 @@ const DestinationsIndexPage = (props) => {
     )
   })
 
-  let appearance = ""
+  let destinationAppearance = ""
   if (destinationResults.length > 0 || noMatchMessage) {
-    appearance = "box"
+    destinationAppearance = "box"
+  }
+
+  const handleFlightIconClick = (event) => {
+    event.preventDefault()
+    setClickFlightPriceForm(!clickFlightPriceForm)
+  }
+
+  const searchPriceAnalysis = async (date) => {
+    setFlightErrorMessage(null)
+    setFlightPriceResults({})
+    const response = await FetchTravels.getCheapestTravel(date)
+    debugger
+    if (response){
+      setFlightPriceResults(response)
+    } else { //response.ok will be false, so not sure how to detect error here
+      setFlightErrorMessage(<div><p>An error occurred while searching. Try again in a few minutes</p></div>)
+    }
+  }
+
+  let showFlightPriceForm
+  let flightPriceIcon = "fa fa-paper-plane"
+  if (clickFlightPriceForm) {
+    flightPriceIcon = "fa fa-paper-plane-o"
+    showFlightPriceForm = <FlightPriceForm
+      searchPriceAnalysis={searchPriceAnalysis}
+    />
+  }
+
+  // FIND A WAY TO RENDER THE DESTINATION FORM WITH ONLY ONE OBJECT
+  const flightPriceResultTile = flightPriceResults.map((result) => {
+    // need to add city_name and cost in render
+    return (
+      <FlightPriceResult
+      />
+    )
+  })
+
+  let flightAppearance = ""
+  if (flightPriceResults.length > 0 || flightErrorMessage) {
+    flightAppearance = "box"
   }
 
   const fetchTravels = async () => {
@@ -82,50 +126,58 @@ const DestinationsIndexPage = (props) => {
     setTravels(updatedState)
   }
 
+  const confirmTravelDelete = async (selectedTravel) => {
+    const travelId = selectedTravel.id
+    const response = await FetchTravels.deleteTravel(travelId)
+    setTravels(response)
+  }
+
   const travelTiles = getTravels.map((travel) => {
     return (
         <TravelTile
           key={travel.id}
           travel={travel}
           updateTravelTiles={updateTravelTiles}
+          confirmTravelDelete={confirmTravelDelete}
         />
     )
   })
-
-  const searchPriceAnalysis = async (date) => {
-
-  }
 
   useEffect(() => {
     fetchTravels()
   }, [])
 
   return (
-    <div className="grid-container">
-      <div className="grid-x grid-margin-x">
-        <div className="grid-container cell medium-6">
-          <i className={icon} aria-hidden="true" onClick={handleIconClick}></i>
-          {showDestinationForm}
-        </div>
-        <div className={`${appearance} grid-container cell medium-6`}>
-          {noMatchMessage}
-          {resultTiles}
-        </div>
+    <div>
+      <div className="sidebar">
+        <a href="#top"><i className={destinationIcon} aria-hidden="true" title="Search Destination" onClick={handleDestinationIconClick}></i></a><br/>
+        <a href="#top"><i className={flightPriceIcon} aria-hidden="true" title="Find Affordable Flight" onClick={handleFlightIconClick}></i></a>
       </div>
-      <div className="grid-x grid-margin-x">
-        <div className="grid-container cell medium-6">
-          <FlightPriceForm 
-            searchPriceAnalysis={searchPriceAnalysis}
-          />
-        </div>
-        <div className={`grid-container cell medium-6`}>
-          <FlightPriceResult />
-        </div>
-      </div>
-      <h2>MY TRAVEL IDEAS</h2>
       <div className="grid-container">
-        <div className="grid-x grid-margin-x small-up-2 medium-up-3 large-up-4">
-          {travelTiles}
+        <div className="grid-x grid-margin-x">
+          <div className="grid-container cell medium-6">
+            {showDestinationForm}
+          </div>
+          <div className={`${destinationAppearance} grid-container cell medium-6`}>
+            {noMatchMessage}
+            {resultTiles}
+          </div>
+        </div>
+        <div className="grid-x grid-margin-x">
+          <div className="grid-container cell medium-6">
+            {showFlightPriceForm}
+          </div>
+          <div className={`${flightAppearance} grid-container cell medium-6`}>
+            {flightErrorMessage}
+            {/* <FlightPriceResult /> */}
+            {flightPriceResultTile}
+          </div>
+        </div>
+        <h2>MY TRAVEL IDEAS</h2>
+        <div className="grid-container">
+          <div className="grid-x grid-margin-x small-up-2 medium-up-3 large-up-4">
+            {travelTiles}
+          </div>
         </div>
       </div>
     </div>

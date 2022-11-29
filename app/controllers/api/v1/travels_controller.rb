@@ -3,7 +3,8 @@ require 'dotenv'
 
 class Api::V1::TravelsController < ApiController
   def index
-    render json: Travel.all
+    travels = Travel.where(user_id: current_user.id)
+    render json: travels, each_serializer: TravelSerializer
   end
 
   def create
@@ -46,13 +47,42 @@ class Api::V1::TravelsController < ApiController
     end
   end
 
+  def search_airports
+    amadeus = Amadeus::Client.new({
+      client_id: "#{ENV['AMADEUS_API_KEY']}",
+      client_secret: "#{ENV['AMADEUS_API_SECRET']}"
+    })
+    
+    date = params[:departure_date]
+    airports = []
+    travels = Travel.all
+    travels.each do |travel|
+      iata_code = amadeus.reference_data.location(travel.destination.amadeus_api_id).get.data["iataCode"]
+      airports.push({"name" => travel.destination.city_name, "iata_code" => iata_code})
+    end
+
+    airport_prices = []
+    airports.each do |airport|
+      flight_cost = amadeus.analytics.itinerary_price_metrics.get(originIataCode: current_user.iata_code, destinationIataCode: airport["iata_code"], departureDate: date, currencyCode: "USD")
+      if flight_cost.data.length > 0
+        airport_prices.push({airport["name"] => flight_cost.data[0]["priceMetrics"][2]["amount"]})
+      end
+    end
+    binding.pry
+
+    cheapest_price = airport_prices[0].sort_by { |key, value| value }.first
+    binding.pry
+    render json: cheapest_price
+    #return lowest amount with city name back
+  end
+
   def destroy
     travel = Travel.find(params["id"])
     
-    if current_user.is == travel.user_id
+    if current_user.id == travel.user_id
       travel.destroy
-      travels = current_user.list
-      render json: {travels: travels, user: current_user } #double check here
+      travels = Travel.where(user_id: current_user.id)
+      render json: travels, each_serializer: TravelSerializer
     else
       render json: { error: travel.errors.full_messages }
     end

@@ -8,5 +8,5 @@ class User < ApplicationRecord
   validates :last_name, presence: true
   validates :iata_code, length: { is: 3 }
 
-  has_many :destinations
+  has_many :travels
 end

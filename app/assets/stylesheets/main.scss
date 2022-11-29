@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono');
 
 body{
-  background-color: #F8F9FA;
+  // background-color: #F8F9FA;
+  background-color: #B7ACA5;
 }
 
 h1, h2, h3, h4, h5, h6{
@@ -18,10 +19,42 @@ p, input{
   background-color: #A2BFBD;
   border-bottom: solid #C8C4C4;
   height: 7em;
+  width: 100%;
+}
+
+.sidebar {
+  height: 100%;
+  width: 160px;
+  position: fixed;
+  z-index: 1;
+  top: 10%;
+  left: 2em;
+  overflow-x: hidden;
+  padding-top: 16px;
 }
 
 .icon{
+  color: #E1AA88;
   font-size: 3em;
+  margin-bottom: 0.5em;
+
+  &:hover{
+    color: #B98564;
+    transform: scale(1.05) perspective(1px)
+  }
+}
+
+.fa-paper-plane, .fa-paper-plane-o{
+  color: #E1AA88;
+  font-size: 1.8em;
+  border: solid 0.1em;
+  border-radius: 0.3em;
+  padding: 0.15em;
+
+  &:hover{
+    color: #B98564;
+    transform: scale(1.05) perspective(1px)
+  }
 }
 
 .bottom-bar{
@@ -32,6 +65,21 @@ p, input{
   width: 100%;
   margin-bottom: 0em;
   padding: 1em 0em 0em 0em;
+}
+
+#app {
+  background-image: 
+    linear-gradient(
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.5)
+    ), url('travel-background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 125em;
+  margin: 0em;
+  padding: 2em;
 }
 
 .align-left{
@@ -52,7 +100,7 @@ p, input{
   font-family: Helvetica, sans-serif;
   font-weight: bold;
   font-size: 1.5em;
-  color: #4b81e5;
+  color: #4B81E5;
   letter-spacing: -1px;
   word-spacing: -5px;
 
@@ -62,10 +110,10 @@ p, input{
 }
 
 .homepage-intro-background{
-  background-image: url('travel-image-612x306.jpeg');
+  background-image: url('travel-homepage.jpg');
   background-size: cover;
   background-position: center;
-  text-align: center;
+  text-align: right;
   height: 45em;
   padding: 10em;
 }
@@ -73,21 +121,35 @@ p, input{
 .lighten {
   background-image: 
     linear-gradient(
-      rgba(255, 255, 255, 0.7),
-      rgba(255, 255, 255, 0.7)
-    ), url('travel-image-612x306.jpeg');
+      rgba(0, 0, 0, 0.1),
+      rgba(0, 0, 0, 0.1)
+    ), url('travel-homepage.jpg');
 }
 
 .homepage-intro-content h2{
   font-family: Helvetica, sans-serif;
-  color: #000000;
+  color: #FFFFFF;
   font-weight: 500;
+}
+
+.alert{
+  font-family: Helvetica, sans-serif;
+  color: #E25050;
+}
+
+.flash{
+  font-family: Helvetica, sans-serif;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  // margin-left: 20%;
+  text-align: center;
 }
 
 .button{
   background-color: #6487F6;
-  color: #ffffff;
+  color: #FFFFFF;
   font-weight: 500;
+  font-family: Helvetica, sans-serif;
   font-size: 1em;
   border-radius: 1em;
 
@@ -99,7 +161,7 @@ p, input{
 
 .button>a{
   background-color: #6487F6;
-  color: #ffffff;
+  color: #FFFFFF;
   border-radius: 1em;
 
   &:hover{
@@ -107,20 +169,16 @@ p, input{
   }
 }
 
+.delete{
+  margin: 0em 0em 1em 1em;
+}
+
 .test{
   color: inherit;
 }
 
-.form-button{
-  background-color: #6487F6;
-  color: #ffffff;
-  border-radius: 0.5em;
-  font-family: Helvetica, sans-serif;
-
-  &:hover{
-    background-color: #2966C9;
-    transform: scale(1.05) perspective(1px)
-  }
+label{
+  font-size: 1.3rem;
 }
 
 .unordered-list{
@@ -136,7 +194,28 @@ p, input{
   border: solid #E6E6E6 0.2em;
   border-radius: 1em;
   padding: 3em;
-  margin: 2em;
+  margin: 0em 2em 2em 2em;
+}
+
+.travel-tile{
+  width: 18em;
+  height: auto;
+  text-align: center;
+  padding: 2em;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+
+.form{
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ReactModal__Content{
+  width: 60%;
+  height: 50%;
+  margin: auto;
 }
 
 .sticky-footer-css {
