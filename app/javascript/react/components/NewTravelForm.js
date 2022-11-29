@@ -62,11 +62,11 @@ const NewTravelForm = (props) => {
   }
 
   return (
-    <form className="box" onSubmit={postNewTravel}>
+    <form className="form box" onSubmit={postNewTravel}>
       {showDestinationName}
       <label>
         Notes:
-        <input
+        <textarea
           type="text"
           name="body"
           value={newTravelRecord.body}

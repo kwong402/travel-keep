@@ -12,7 +12,8 @@ Rails.application.routes.draw do
         resources :travels, only: [:create]
       end
 
-      resources :travels, only: [:index, :update, :delete]
+      get '/travels/search_airports' => 'travels#search_airports'
+      resources :travels, only: [:index, :update, :destroy]
     end
   end
 end
