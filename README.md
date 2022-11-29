@@ -58,7 +58,23 @@ Any contributions you make are **greatly appreciated**.
 4. Push to the Branch (`git push origin head`)
 5. Open a Pull Request
 
-## 👨‍💻 Author
+## Features in Progress
+
+Travel Keep is a fully functional tool for brainstorming and organizing travel ideas. However, there are more features coming, including:
+
+- Ability to see and add activities or points of interest to travel ideas
+- Ability to select a flight for a planned destination
+- Ability to create an itinerary and book hotel and/or car rentals
+- Mobile device optimizations
+
+## Known Issues
+
+Fixes are in progress for these known issues, mainly with the Amadeus free membership plan:
+
+- Mostly popular cities will be found in the destination search.
+- When searching a flight price analysis on saved travels, it will take some time to load the result. An error message alerts the user to wait a few minutes before searching again due to the Amadeus API network rate limit.
+
+## 👩🏻‍💻 Author
 
 Connect with the developer.
 
@@ -71,3 +87,7 @@ Connect with the developer.
 [linkedin]: https://www.linkedin.com/in/kwong402/
 [email]: mailto:kwong402@gmail.com
 [github]: https://github.com/kwong402
+
+## Other Notes
+
+Thank you to the Launch Academy staff (Kerrin Gillis and Nick Alberts) for their support in development
