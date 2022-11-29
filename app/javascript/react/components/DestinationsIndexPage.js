@@ -16,17 +16,21 @@ const DestinationsIndexPage = (props) => {
   const [destinationResults, setDestinationResults] = useState([])
   const [flightErrorMessage, setFlightErrorMessage] = useState(null)
   const [flightPriceResults, setFlightPriceResults] = useState([])
+  const [loadingStatus, setLoadingStatus] = useState(null)
 
   const handleDestinationIconClick = (event) => {
     event.preventDefault()
     setClickDestinationForm(!clickDestinationForm)
     setDestinationResults([])
+    setNoMatchMessage(null)
   }
 
   const searchNewDestination = async(userSearchData) => {
       setNoMatchMessage(null)
       setDestinationResults([])
+      setLoadingStatus(<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>)
       const response = await FetchDestinations.getDestinations(userSearchData.city_name)
+      setLoadingStatus(null)
       if (response){
         setDestinationResults(response)
       } else {
@@ -66,12 +70,16 @@ const DestinationsIndexPage = (props) => {
     event.preventDefault()
     setClickFlightPriceForm(!clickFlightPriceForm)
     setFlightPriceResults([])
+    setFlightErrorMessage(null)
   }
+
 
   const searchPriceAnalysis = async (date) => {
     setFlightErrorMessage(null)
     setFlightPriceResults([])
+    setLoadingStatus(<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>)
     const response = await FetchTravels.getCheapestTravel(date)
+    setLoadingStatus(null)
     if (response){
       setFlightPriceResults(response)
     } else {
@@ -159,6 +167,7 @@ const DestinationsIndexPage = (props) => {
             {showDestinationForm}
           </div>
           <div className={`${destinationAppearance} grid-container cell medium-6`}>
+            {loadingStatus}
             {noMatchMessage}
             {resultTiles}
           </div>
