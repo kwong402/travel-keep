@@ -23,14 +23,12 @@ class FetchTravels {
 
   static async getCheapestTravel(date) {
     try {
-      debugger
       const response = await fetch(`/api/v1/travels/search_airports?departure_date=${date.departure_date}`)
       if (!response.ok) {
         const errorMessage = `${response.status} (${response.statusText})`
         throw new Error(errorMessage)
       }
       const responseBody = await response.json()
-      debugger
       return responseBody
     } catch (error) {
       console.error(`Error in fetch: ${error.message}`)

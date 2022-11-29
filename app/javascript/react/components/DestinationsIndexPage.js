@@ -33,6 +33,7 @@ const DestinationsIndexPage = (props) => {
       }
   }
 
+  let resultTiles
   let showDestinationForm
   let destinationIcon = "fa fa-plus-square icon"
   if (clickDestinationForm) {
@@ -40,9 +41,11 @@ const DestinationsIndexPage = (props) => {
     showDestinationForm = <NewDestinationForm 
       searchNewDestination={searchNewDestination}
     />
+  } else {
+    resultTiles = ""
   }
 
-  const resultTiles = destinationResults.map((result) => {
+  resultTiles = destinationResults.map((result) => {
     return (
       <Link to={`travels/${result.id}/new`} key={result.id}>
         <DestinationResultTile
@@ -67,12 +70,11 @@ const DestinationsIndexPage = (props) => {
 
   const searchPriceAnalysis = async (date) => {
     setFlightErrorMessage(null)
-    setFlightPriceResults({})
+    setFlightPriceResults([])
     const response = await FetchTravels.getCheapestTravel(date)
-    debugger
     if (response){
       setFlightPriceResults(response)
-    } else { //response.ok will be false, so not sure how to detect error here
+    } else {
       setFlightErrorMessage(<div><p>An error occurred while searching. Try again in a few minutes</p></div>)
     }
   }
@@ -86,14 +88,12 @@ const DestinationsIndexPage = (props) => {
     />
   }
 
-  // FIND A WAY TO RENDER THE DESTINATION FORM WITH ONLY ONE OBJECT
-  const flightPriceResultTile = flightPriceResults.map((result) => {
-    // need to add city_name and cost in render
-    return (
-      <FlightPriceResult
-      />
-    )
-  })
+  let flightPriceResultTile
+  if (Object.keys(flightPriceResults).length > 0) {
+    flightPriceResultTile = <FlightPriceResult
+    flightPriceResults = {flightPriceResults}
+    />
+  }
 
   let flightAppearance = ""
   if (flightPriceResults.length > 0 || flightErrorMessage) {
@@ -169,7 +169,6 @@ const DestinationsIndexPage = (props) => {
           </div>
           <div className={`${flightAppearance} grid-container cell medium-6`}>
             {flightErrorMessage}
-            {/* <FlightPriceResult /> */}
             {flightPriceResultTile}
           </div>
         </div>

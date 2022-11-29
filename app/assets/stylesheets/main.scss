@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono');
 
 body{
-  // background-color: #F8F9FA;
   background-color: #B7ACA5;
 }
 
@@ -20,6 +19,8 @@ p, input{
   border-bottom: solid #C8C4C4;
   height: 7em;
   width: 100%;
+  position: sticky;
+  top: 0;
 }
 
 .sidebar {
@@ -141,7 +142,6 @@ p, input{
   font-family: Helvetica, sans-serif;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
-  // margin-left: 20%;
   text-align: center;
 }
 
@@ -195,6 +195,7 @@ label{
   border-radius: 1em;
   padding: 3em;
   margin: 0em 2em 2em 2em;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
 .travel-tile{
