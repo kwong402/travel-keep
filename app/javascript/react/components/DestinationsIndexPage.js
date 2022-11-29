@@ -20,6 +20,7 @@ const DestinationsIndexPage = (props) => {
   const handleDestinationIconClick = (event) => {
     event.preventDefault()
     setClickDestinationForm(!clickDestinationForm)
+    setDestinationResults([])
   }
 
   const searchNewDestination = async(userSearchData) => {
@@ -41,8 +42,6 @@ const DestinationsIndexPage = (props) => {
     showDestinationForm = <NewDestinationForm 
       searchNewDestination={searchNewDestination}
     />
-  } else {
-    resultTiles = ""
   }
 
   resultTiles = destinationResults.map((result) => {
@@ -66,6 +65,7 @@ const DestinationsIndexPage = (props) => {
   const handleFlightIconClick = (event) => {
     event.preventDefault()
     setClickFlightPriceForm(!clickFlightPriceForm)
+    setFlightPriceResults([])
   }
 
   const searchPriceAnalysis = async (date) => {
