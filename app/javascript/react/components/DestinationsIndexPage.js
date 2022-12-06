@@ -73,7 +73,6 @@ const DestinationsIndexPage = (props) => {
     setFlightErrorMessage(null)
   }
 
-
   const searchPriceAnalysis = async (date) => {
     setFlightErrorMessage(null)
     setFlightPriceResults([])
@@ -181,7 +180,7 @@ const DestinationsIndexPage = (props) => {
             {flightPriceResultTile}
           </div>
         </div>
-        <h2>MY TRAVEL IDEAS</h2>
+        <h2 className="grid-header">MY TRAVEL IDEAS</h2>
         <div className="grid-container">
           <div className="grid-x grid-margin-x small-up-2 medium-up-3 large-up-4">
             {travelTiles}
