@@ -12,12 +12,17 @@
   
   <nav class="top-bar ">
     <h1>
-      <a href="/"><%= image_tag("icons8-travel-diary-50.png", :class => "header-image", :alt => "travel icon") %></a>
-      <a href="/" class="travel-keep-header">Travel Keep</a>
+      <a href="/destinations"><%= image_tag("icons8-travel-diary-50.png", :class => "header-image", :alt => "travel icon") %></a>
+      <a href="/destinations" class="travel-keep-header">Travel Keep</a>
     </h1>
 
     <section class="top-bar-section">
+      <%- if current_user -%>
         <%= link_to 'My Keep', destinations_path, class: "button" %>
+        <%= link_to 'Sign Out', destroy_user_session_path, class: "button", method: :delete %>
+      <%- else -%>
+        <%= link_to 'Sign In', new_user_session_path, class: "button" %>
+      <%- end -%>
     </section>
 
   </nav>
