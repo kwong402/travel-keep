@@ -2,8 +2,8 @@ Rails.application.routes.draw do
   root 'main#index'
   devise_for :users
   
-  get '/destinations', to: 'destinations'
-  get '/travels/new', to: 'destinations'
+  get '/destinations', to: 'homes#authenticated'
+  get '/travels/new', to: 'homes#authenticated'
 
   namespace :api do
     namespace :v1 do

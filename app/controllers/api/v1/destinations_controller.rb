@@ -2,7 +2,7 @@ require 'amadeus'
 require 'dotenv'
 
 class Api::V1::DestinationsController < ApiController
-  # before_action :authenticate_user
+  before_action :authenticate_user
 
   def index
     amadeus = Amadeus::Client.new({
@@ -53,9 +53,9 @@ class Api::V1::DestinationsController < ApiController
     params.require(:destination).permit(:city_name)
   end
 
-  # def authenticate_user
-  #   if !user_signed_in?
-  #     render json: {error: ["You need to be signed in first"]}
-  #   end
-  # end
+  def authenticate_user
+    if !user_signed_in?
+      render json: {error: ["You need to be signed in first"]}
+    end
+  end
 end
